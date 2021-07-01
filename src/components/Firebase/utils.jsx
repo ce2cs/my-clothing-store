@@ -14,15 +14,32 @@ const config = {
 
 firebase.initializeApp(config);
 
-export const auth = firebase.auth();
-export const store = firebase.firestore();
-
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
   'login_hint': 'user@example.com',
   'prompt': 'select_account'
 });
 
+export const createUserDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+  const userRef = store.doc(`Users/${userAuth.uid}`);
+  if (!(await userRef.get()).exists) {
+    const {displayName, email} = userAuth;
+    const createdAt = new Date();
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData
+      });
+    } catch (err) {
+      console.log('create user failed', err.message);
+    }
+  }
+  return userRef;
+}
+export const auth = firebase.auth();
+export const store = firebase.firestore();
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 export default firebase;
-
