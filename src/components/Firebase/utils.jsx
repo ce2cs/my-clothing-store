@@ -16,7 +16,7 @@ firebase.initializeApp(config);
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
-  'login_hint': 'user@example.com',
+  'login_hint': 'User@example.com',
   'prompt': 'select_account'
 });
 
@@ -34,7 +34,7 @@ export const createUserDocument = async (userAuth, additionalData) => {
         ...additionalData
       });
     } catch (err) {
-      console.log('create user failed', err.message);
+      console.log('create User failed', err.message);
     }
   }
   return userRef;
