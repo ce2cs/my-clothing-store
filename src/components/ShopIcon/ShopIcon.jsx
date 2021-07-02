@@ -11,7 +11,9 @@ const ShopIcon = ({ToggleCartDropdown}) => (
     <span className='item-count'>0</span>
   </div>
 )
+
 const mapDispatchToProps = (dispatch) => ({
     ToggleCartDropdown: () => dispatch(ToggleCartDropdown())
 });
+
 export default connect(null, mapDispatchToProps)(ShopIcon);

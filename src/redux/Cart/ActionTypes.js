@@ -1,5 +1,6 @@
 const ActionTypes = {
-  ToggleCartDropdown: 'ToggleCartDropdown'
+  ToggleCartDropdown: 'ToggleCartDropdown',
+  AddItem: 'AddItem'
 };
 
 export default ActionTypes;
