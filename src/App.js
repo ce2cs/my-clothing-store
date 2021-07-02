@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import HomePage from "./containers/HomePage/HomePage";
-import {Route} from "react-router-dom";
+import {Route, Redirect} from "react-router-dom";
 import ShopPage from "./containers/ShopPage/ShopPage";
 import Header from "./components/Header/Header";
 import SignPage from "./containers/SignPage/SignPage";
@@ -39,17 +39,26 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header/>
         <Route exact path="/" component={HomePage}/>
         <Route exact path="/shop" component={ShopPage}/>
-        <Route exact path="/sign-in" component={SignPage}/>
+        <Route exact path="/sign-in" render={() => {
+          return this.props.currUser ? <Redirect to="/"/> : <SignPage/>
+        }}/>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user))
-})
+    setCurrentUser: (user) => dispatch(setCurrentUser(user))
+  }
+)
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = state => (
+  {
+    currUser: state.user.currUser
+  }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
