@@ -8,6 +8,7 @@ import SignPage from "./containers/SignPage/SignPage";
 import {auth, createUserDocument} from "./components/Firebase/utils";
 import {connect} from "react-redux";
 import {setCurrentUser} from "./redux/User/Actions";
+import {selectCurrUser} from "./redux/User/Selectors";
 
 class App extends Component {
 
@@ -56,9 +57,7 @@ const mapDispatchToProps = (dispatch) => ({
 )
 
 const mapStateToProps = state => (
-  {
-    currUser: state.user.currUser
-  }
+  {currUser: selectCurrUser(state)}
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
