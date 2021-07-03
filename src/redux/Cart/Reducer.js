@@ -1,5 +1,5 @@
 import ActionTypes from "./ActionTypes";
-import {addItemToCart} from "./utils";
+import {addItemToCart, clearItem, removeItem} from "./utils";
 
 const INITIAL_STATE = {
   hidden: true,
@@ -11,6 +11,10 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
     return {...state, hidden: !state.hidden}
   } else if (action.type === ActionTypes.AddItem) {
     return {...state, items: addItemToCart(state.items, action.payload)};
+  } else if (action.type === ActionTypes.RemoveItem) {
+    return {...state, items: removeItem(state.items, action.payload)}
+  } else if (action.type === ActionTypes.ClearItem) {
+    return {...state, items: clearItem(state.items, action.payload)}
   } else {
     return state;
   }
