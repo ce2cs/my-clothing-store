@@ -9,6 +9,13 @@ export const selectShopCollections = createSelector(
 );
 
 export const selectCollectionById = memoize(collectionId => createSelector(
-  [selectShopCollections],
-  collections => collections[collectionId]
+  [selectShopData],
+  shop => shop.collections[collectionId]
+));
+
+export const selectItemsBySlice = memoize((start, end) => (collectionId) => (
+  createSelector(
+    [selectCollectionById(collectionId)],
+    collection => Object.values(collection.items).slice(start, end)
+  )
 ));

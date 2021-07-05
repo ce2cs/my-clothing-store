@@ -6,6 +6,7 @@ import {selectCollectionById} from "../../redux/Shop/Selector";
 import './CollectionPage.scss'
 
 const CollectionPage = ({match, getCollection}) => {
+  console.log(match.params.collectionId);
   const {title, items} = getCollection
   return (
     <div className='collection-page'>
@@ -21,9 +22,10 @@ const CollectionPage = ({match, getCollection}) => {
   );
 }
 
-const mapStateToProps = (state, {match}) => ({
+const mapStateToProps = (state, {match}) => {
+  return ({
   getCollection: selectCollectionById(match.params.collectionId)(state)
-})
+})}
 
 
 export default connect(mapStateToProps)(CollectionPage);

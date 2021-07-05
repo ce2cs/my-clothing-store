@@ -8,9 +8,13 @@ import './CollectionOverview.scss'
 
 const CollectionOverview = ({collections}) => (
   <div className='collection-overview'>
-    {collections.map(({id, ...otherCollectionData}) => (
-      <CollectionPreview key={id} {...otherCollectionData}/>
-    ))}
+    {collections.map((collection) => {
+        return (
+          <CollectionPreview key={collection.id} title={collection.title} collectionId={collection.routeName}/>
+        )
+      }
+    )
+    }
   </div>
 );
 const mapStateToProps = (state) => ({
