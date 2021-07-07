@@ -10,12 +10,13 @@ import {connect} from "react-redux";
 import {setCurrentUser} from "./redux/User/Actions";
 import {selectCurrUser} from "./redux/User/Selectors";
 import CheckoutPage from "./containers/CheckoutPage/CheckoutPage";
+import {selectShopCollections} from "./redux/Shop/Selector";
 
 class App extends Component {
 
   authUnsubscribe = null;
 
-  componentDidMount() {
+  async componentDidMount() {
     this.authUnsubscribe = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserDocument(userAuth);
@@ -59,7 +60,9 @@ const mapDispatchToProps = (dispatch) => ({
 )
 
 const mapStateToProps = state => (
-  {currUser: selectCurrUser(state)}
+  {
+    currUser: selectCurrUser(state),
+  }
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
