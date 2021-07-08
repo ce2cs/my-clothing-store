@@ -1,5 +1,7 @@
 const ActionTypes = {
-  updateCollections: 'updateCollections'
+  updateCollections: 'updateCollections',
+  fetchCollectionStart: 'fetchCollectionStart',
+  fetchCollectionSuccess: 'fetchCollectionSuccess',
+  fetchCollectionFailure: 'fetchCollectionFailure'
 }
-
 export default ActionTypes;

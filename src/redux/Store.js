@@ -4,6 +4,7 @@ import {persistStore, persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import RootReducer from "./RootReducer";
+import thunk from "redux-thunk";
 
 const persistConfig = {
   key: 'root',
@@ -11,7 +12,7 @@ const persistConfig = {
   whitelist: ['cart']
 }
 
-const middlewares = [];
+const middlewares = [thunk];
 
 if (process.env.NODE_ENV === 'development') {
   middlewares.push(logger);

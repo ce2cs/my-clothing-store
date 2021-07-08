@@ -19,3 +19,13 @@ export const selectItemsBySlice = memoize((start, end) => (collectionId) => (
     collection => Object.values(collection.items).slice(start, end)
   )
 ));
+
+export const selectFetchingStatus = createSelector(
+  [selectShopData],
+  shop => shop.isFetching
+);
+
+export const selectCollectionsLoaded = createSelector(
+  [selectShopData],
+  shop => !!shop.collections
+);

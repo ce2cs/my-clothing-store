@@ -8,46 +8,22 @@ import CollectionPage from "../CollectionPage/CollectionPage";
 import {store} from "../../components/Firebase/utils";
 import {updateCollections} from "../../redux/Shop/Actions";
 import WithSpinner from "../../components/WithSpinner/WithSpinner";
+import {fetchCollectionsStartAsync} from "../../redux/Shop/Actions";
+import {selectCollectionsLoaded, selectFetchingStatus} from "../../redux/Shop/Selector";
 
 const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview)
 const CollectionPageWithSpinner = WithSpinner(CollectionPage)
 
 class ShopPage extends Component {
-  state = {
-    isLoading: true
-  }
 
   unSubscribeOnSnapshot = null;
 
   componentDidMount() {
-    const {updateCollections} = this.props;
-    const collectionsRef = store.collection('collections');
-    collectionsRef.onSnapshot(async collectionSnapshot => {
-      const collections = collectionSnapshot.docs.map(doc => {
-        const {items, title} = doc.data();
-        return {
-          id: doc.id,
-          routeName: encodeURI(title.toLowerCase()),
-          title,
-          items
-        }
-      });
-      const collectionMap = collections.reduce((cumulative, curr) => {
-          cumulative[curr.title.toLowerCase()] = curr
-          return cumulative;
-        }
-        , {})
-      updateCollections(collectionMap);
-
-      this.setState({
-        isLoading: false
-      });
-    })
+    const {fetchCollections} = this.props;
+    fetchCollections();
   }
-
-  render() {
-    const {match} = this.props;
-    const {isLoading} = this.state;
+render() {
+    const {match, isLoading} = this.props;
     return (
       <div className='shop-page'>
         <Route exact path={match.path}
@@ -59,8 +35,12 @@ class ShopPage extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  isLoading: !selectCollectionsLoaded(state)
+})
 const mapDispatchToProps = (dispatch) => ({
-  updateCollections: (collections) => dispatch(updateCollections(collections))
+  updateCollections: (collections) => dispatch(updateCollections(collections)),
+  fetchCollections: () => dispatch(fetchCollectionsStartAsync())
 })
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
