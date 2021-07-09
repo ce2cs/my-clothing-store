@@ -7,7 +7,7 @@ import Header from "./components/Header/Header";
 import SignPage from "./containers/SignPage/SignPage";
 import {auth, createUserDocument} from "./components/Firebase/utils";
 import {connect} from "react-redux";
-import {setCurrentUser} from "./redux/User/Actions";
+import {setCurrentUser, checkUserSession} from "./redux/User/Actions";
 import {selectCurrUser} from "./redux/User/Selectors";
 import CheckoutPage from "./containers/CheckoutPage/CheckoutPage";
 import {selectShopCollections} from "./redux/Shop/Selector";
@@ -16,27 +16,9 @@ class App extends Component {
 
   authUnsubscribe = null;
 
-  async componentDidMount() {
-    this.authUnsubscribe = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserDocument(userAuth);
-        userRef.onSnapshot(snapshot => {
-          this.props.setCurrentUser(
-            {
-              id: snapshot.id,
-              ...snapshot.data()
-            })
-        });
-      } else {
-        this.props.setCurrentUser(userAuth)
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    if (this.authUnsubscribe) {
-      this.authUnsubscribe();
-    }
+  componentDidMount() {
+    const {checkUserSession} = this.props;
+    checkUserSession();
   }
 
   render() {
@@ -54,15 +36,14 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    setCurrentUser: (user) => dispatch(setCurrentUser(user))
-  }
-)
-
 const mapStateToProps = state => (
   {
     currUser: selectCurrUser(state),
   }
-)
+);
+
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

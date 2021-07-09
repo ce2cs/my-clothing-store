@@ -8,7 +8,7 @@ import CollectionPage from "../CollectionPage/CollectionPage";
 import {store} from "../../components/Firebase/utils";
 import {updateCollections} from "../../redux/Shop/Actions";
 import WithSpinner from "../../components/WithSpinner/WithSpinner";
-import {fetchCollectionsStartAsync} from "../../redux/Shop/Actions";
+import {fetchCollectionsStart} from "../../redux/Shop/Actions";
 import {selectCollectionsLoaded, selectFetchingStatus} from "../../redux/Shop/Selector";
 
 const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview)
@@ -40,7 +40,7 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
   updateCollections: (collections) => dispatch(updateCollections(collections)),
-  fetchCollections: () => dispatch(fetchCollectionsStartAsync())
+  fetchCollections: () => dispatch(fetchCollectionsStart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
