@@ -4,7 +4,7 @@ import {auth, createUserDocument} from "../../components/Firebase/utils";
 import {googleProvider, getCurrentUser} from "../../components/Firebase/utils";
 import {
   signInFailure,
-  signInSuccess, signOutFailure, signOutStart, signOutSuccess,
+  signInSuccess, signOutFailure, signOutStart, signOutSuccess, signUpFailure, signUpSuccess,
 } from "./Actions";
 
 function* signInWithGoogle() {
@@ -35,6 +35,7 @@ function* signInWithEmail({payload: {email, password}}) {
     const {user} = yield auth.signInWithEmailAndPassword(email, password);
     yield call(getUserFromUserAuth, user);
   } catch (error) {
+    alert(error.message);
     yield put(signInFailure(error.message));
   }
 }
@@ -69,12 +70,28 @@ function* signOut() {
 function* onSignOut() {
   yield takeLatest(actionTypes.signOutStart, signOut);
 }
+function* signUp({payload: {email, password, displayName}}) {
+  try {
+    const {user} = yield auth.createUserWithEmailAndPassword(email, password);
+    const userRef = yield createUserDocument(user, {displayName});
+    const userSnapShot = yield userRef.get();
+    yield put(signUpSuccess({id: userSnapShot.id, ...userSnapShot.data()}));
+  } catch (error) {
+    alert(error.message);
+    yield put(signUpFailure(error.message))
+  }
+}
+
+function* onSignUp() {
+  yield takeLatest(actionTypes.signUpStart, signUp);
+}
 
 export default function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
     call(onEmailSignInStart),
     call(onCheckUserSession),
-    call(onSignOut)
+    call(onSignOut),
+    call(onSignUp)
   ])
 }

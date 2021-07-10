@@ -8,4 +8,7 @@ export const actionTypes = {
   signOutStart: 'signOutStart',
   signOutSuccess: 'signOutSuccess',
   signOutFailure: 'signOutFailure',
+  signUpStart: 'signUpStart',
+  signUpSuccess: 'signUpSuccess',
+  signUpFailure: 'signUpFailure'
 }

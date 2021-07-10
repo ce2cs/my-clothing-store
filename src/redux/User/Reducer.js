@@ -34,6 +34,17 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         errorMessage: action.payload
       }
+    case actionTypes.signUpSuccess:
+      return {
+        ...state,
+        currUser: action.payload,
+        errorMessage: null
+      }
+    case actionTypes.signUpFailure:
+      return {
+        ...state,
+        errorMessage: action.payload
+      }
     default:
       return state;
   }

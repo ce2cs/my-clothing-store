@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useEffect, useState} from "react";
 import {Route} from "react-router-dom";
 import {connect} from "react-redux";
 
@@ -14,25 +14,20 @@ import {selectCollectionsLoaded, selectFetchingStatus} from "../../redux/Shop/Se
 const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview)
 const CollectionPageWithSpinner = WithSpinner(CollectionPage)
 
-class ShopPage extends Component {
+const ShopPage = ({fetchCollections, match, isLoading}) => {
 
-  unSubscribeOnSnapshot = null;
+  useEffect(
+    fetchCollections
+    , [fetchCollections])
 
-  componentDidMount() {
-    const {fetchCollections} = this.props;
-    fetchCollections();
-  }
-render() {
-    const {match, isLoading} = this.props;
-    return (
-      <div className='shop-page'>
-        <Route exact path={match.path}
-               render={(props) => <CollectionOverviewWithSpinner isLoading={isLoading} {...props}/>}/>
-        <Route path={`${match.path}/:collectionId`}
-               render={(props) => <CollectionPageWithSpinner isLoading={isLoading} {...props}/>}/>
-      </div>
-    );
-  }
+  return (
+    <div className='shop-page'>
+      <Route exact path={match.path}
+             render={(props) => <CollectionOverviewWithSpinner isLoading={isLoading} {...props}/>}/>
+      <Route path={`${match.path}/:collectionId`}
+             render={(props) => <CollectionPageWithSpinner isLoading={isLoading} {...props}/>}/>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => ({
