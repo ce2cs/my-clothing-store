@@ -5,12 +5,10 @@ import {Route, Redirect} from "react-router-dom";
 import ShopPage from "./containers/ShopPage/ShopPage";
 import Header from "./components/Header/Header";
 import SignPage from "./containers/SignPage/SignPage";
-import {auth, createUserDocument} from "./components/Firebase/utils";
 import {connect} from "react-redux";
 import {setCurrentUser, checkUserSession} from "./redux/User/Actions";
 import {selectCurrUser} from "./redux/User/Selectors";
 import CheckoutPage from "./containers/CheckoutPage/CheckoutPage";
-import {selectShopCollections} from "./redux/Shop/Selector";
 
 const App = ({currUser, checkUserSession}) => {
   useEffect(checkUserSession, [checkUserSession])

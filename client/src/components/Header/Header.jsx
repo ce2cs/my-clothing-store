@@ -3,7 +3,6 @@ import React from "react";
 import "./Header.scss"
 import {ReactComponent as Logo} from "../../assets/crown.svg";
 import {Link} from "react-router-dom";
-import {auth} from "../Firebase/utils";
 import {connect} from "react-redux";
 import ShopIcon from "../ShopIcon/ShopIcon";
 import CartDropdown from "../CartDropdown/CartDropdown";
@@ -21,8 +20,6 @@ const Header = (props) => (
       <div className='option'>
         <Link to="/shop">SHOP</Link>
       </div>
-      <div className='option'>
-        <Link to="/contact">CONTACT</Link> </div>
       {
         props.currUser ?
           <div className='option' onClick={() => props.signOut()}>SIGN OUT</div> :

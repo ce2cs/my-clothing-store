@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 
 import CollectionPreview from "../CollectionPreview/CollectionPreview";
 import {selectShopCollections} from "../../redux/Shop/Selector";
-
 import './CollectionOverview.scss'
 
 const CollectionOverview = ({collections}) => (
