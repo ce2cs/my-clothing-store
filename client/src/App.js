@@ -1,5 +1,5 @@
 import React, {useEffect, lazy, Suspense, Error} from 'react';
-import './App.css';
+import './App.scss';
 import {Route, Redirect} from "react-router-dom";
 import Header from "./components/Header/Header";
 import {connect} from "react-redux";

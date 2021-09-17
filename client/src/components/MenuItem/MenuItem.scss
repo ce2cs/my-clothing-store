@@ -10,8 +10,15 @@
   font-family: 'Open Sans Condensed', sans-serif;
   overflow: hidden;
 
+  @media screen and (max-width: 800px) {
+    height: 300px;
+  }
+
   &.large {
     height: 360px;
+    @media screen and (max-width: 800px) {
+      height: 300px;
+    }
   }
 
   &:first-child {

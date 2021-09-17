@@ -13,7 +13,7 @@ const CollectionPreview = ({collectionId, title, items}) => {
         <h1 className='title'>{title.toUpperCase()}</h1>
       </Link>
       <div className='preview'>
-        {items.slice(0, 5).map((item) => (
+        {items.slice(0, 4).map((item) => (
           <CollectionItem key={item.id} item={item}/>))
         }
       </div>
@@ -23,7 +23,7 @@ const CollectionPreview = ({collectionId, title, items}) => {
 
 const mapStateToProps = (state, {collectionId}) => {
   return ({
-    items: selectItemsBySlice(0, 5)(collectionId)(state)
+    items: selectItemsBySlice(0, 4)(collectionId)(state)
   })
 }
 
