@@ -1,0 +1,22 @@
+.outer-container {
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-container {
+  display: inline-block;
+  background-size: cover;
+  background-position: center;
+  background-image: url("https://i.imgur.com/A040Lxr.png");
+  width: 40vh;
+  height: 40vh;
+}
+
+.text-container {
+  font-size: 28px;
+  color: #2f8e89;
+}

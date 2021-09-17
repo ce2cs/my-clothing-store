@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import "./ShopPage.scss"
 import CollectionOverview from "../../components/CollectionOverview/CollectionOverview";
 import CollectionPage from "../CollectionPage/CollectionPage";
-import {store} from "../../components/Firebase/utils";
 import {updateCollections} from "../../redux/Shop/Actions";
 import WithSpinner from "../../components/WithSpinner/WithSpinner";
 import {fetchCollectionsStart} from "../../redux/Shop/Actions";

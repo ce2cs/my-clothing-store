@@ -27,4 +27,5 @@ const CartDropdown = ({items, history, dispatch}) => (
 const mapStatesToProps = (state) => ({
   items: selectCartItems(state)
 });
-export default withRouter(connect(mapStatesToProps)(CartDropdown));
+
+export default withRouter(connect(mapStatesToProps)(React.memo(CartDropdown)));
